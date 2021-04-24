@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
-
+import react, { useState } from "react";
+import x from "./Data/data.js";
+import "./App.css";
 function App() {
+  const [data, setData] = useState("");
+  let usernames = data.split("RID  :");
+  let listedUsernames = usernames
+    .filter((user) => user.split("\n")[0])
+    .map(
+      (user) =>
+        user.split("User :")[1] && (
+          <tr>
+            <td>{user.split("User :")[1].split("\n")[0]}</td>
+            <td>
+              {user.split("Hash NTLM:")[1]
+                ? user.split("Hash NTLM:")[1].split("\n")[0]
+                : "-"}
+            </td>
+          </tr>
+        )
+    );
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      MimiKatz
+      <table>
+        <tr>
+          <th>Username</th>
+          <th>NTLM</th>
+        </tr>
+        {listedUsernames}
+      </table>
+      <textarea
+        value={data}
+        onChange={(e) => setData(e.target.value)}
+      ></textarea>
     </div>
   );
 }
