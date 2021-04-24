@@ -1,8 +1,8 @@
 import react, { useState } from "react";
-import x from "./Data/data.js";
+
 import "./App.css";
 function App() {
-  const [data, setData] = useState("");
+  const [data, setData] = useState("Copy/paste mimikatz output here");
   let usernames = data.split("RID  :");
   let listedUsernames = usernames
     .filter((user) => user.split("\n")[0])
@@ -30,6 +30,8 @@ function App() {
         {listedUsernames}
       </table>
       <textarea
+        rows="20"
+        cols="100"
         value={data}
         onChange={(e) => setData(e.target.value)}
       ></textarea>
