@@ -14,7 +14,8 @@ import Tab from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Sekurlsalogonpasswords from "./sekurlsalogonpasswords.js";
-
+import Footer from "./Footer.js";
+import DataModal from "./DataModal";
 const theme = createMuiTheme({
   palette: {
     type: "dark",
@@ -57,17 +58,28 @@ export default function Palette() {
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
     <ThemeProvider theme={theme}>
+      <DataModal open={open} setOpen={setOpen} setData={setData} data={data} />
       <CssBaseline />
       <Container maxWidth="lg">
         <AppBar position="static" color="inherit">
           <Toolbar>
-            <Typography variant="h6">Mimikatz Parser</Typography>
+            <Typography variant="h6" style={{ flexGrow: 1 }}>
+              Mimikatz Parser
+            </Typography>
+            <Button color="inherit" onClick={handleOpen}>
+              Insert Data
+            </Button>
           </Toolbar>
         </AppBar>
         <Tabs
@@ -85,21 +97,8 @@ export default function Palette() {
         <TabPanel value={value} index={1}>
           <Sekurlsalogonpasswords data={data} />
         </TabPanel>
-
-        <div>
-          <Button onClick={() => setStatus(!status)}>
-            {status ? "Hide" : "Show"}
-          </Button>
-        </div>
-        {status && (
-          <TextareaAutosize
-            value={data}
-            rowsMax={4}
-            onClick={(e) => e.target.select()}
-            onChange={(e) => setData(e.target.value)}
-          ></TextareaAutosize>
-        )}
       </Container>
+      <Footer />
     </ThemeProvider>
   );
 }

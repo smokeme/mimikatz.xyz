@@ -10,3 +10,12 @@ th {
   text-align: left;
   padding: 8px;
 }
+.footer {
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100% !important;
+  height: 100px !important ;
+  margin-top: calc(5% + 60px);
+  bottom: 0;
+}
