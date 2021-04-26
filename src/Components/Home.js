@@ -16,6 +16,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Sekurlsalogonpasswords from "./sekurlsalogonpasswords.js";
 import Footer from "./Footer.js";
 import DataModal from "./DataModal";
+import Tickets from "./tickets";
 const theme = createMuiTheme({
   palette: {
     type: "dark",
@@ -63,6 +64,11 @@ export default function Palette() {
   const handleOpen = () => {
     setOpen(true);
   };
+  const [openHelper, setOpenHelper] = useState(false);
+
+  const handleOpenHelper = () => {
+    setOpenHelper(true);
+  };
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -89,13 +95,25 @@ export default function Palette() {
         >
           <Tab label="LSADUMP::SAM" {...a11yProps(0)} />
           <Tab label="logonpasswords" {...a11yProps(1)} />
+          <Tab label="Tickets" {...a11yProps(2)} />
         </Tabs>
 
         <TabPanel value={value} index={0}>
           <Lsadumpsam data={data} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Sekurlsalogonpasswords data={data} />
+          <Sekurlsalogonpasswords
+            data={data}
+            setOpenHelper={setOpenHelper}
+            openHelper={openHelper}
+          />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <Tickets
+            data={data}
+            setOpenHelper={setOpenHelper}
+            openHelper={openHelper}
+          />
         </TabPanel>
       </Container>
       <Footer />

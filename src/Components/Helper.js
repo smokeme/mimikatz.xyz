@@ -20,19 +20,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TransitionsModal({ open, setOpen, data, setData }) {
+export default function TransitionsModal({
+  openHelper,
+  setOpenHelper,
+  children,
+}) {
   const classes = useStyles();
 
   const handleClose = () => {
-    setOpen(false);
+    setOpenHelper(false);
   };
-
+  console.log("hi?");
   return (
     <Modal
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       className={classes.modal}
-      open={open}
+      open={openHelper}
       onClose={handleClose}
       closeAfterTransition
       BackdropComponent={Backdrop}
@@ -40,25 +44,8 @@ export default function TransitionsModal({ open, setOpen, data, setData }) {
         timeout: 500,
       }}
     >
-      <Fade in={open}>
-        <div className={classes.paper}>
-          <div>
-            <h2 id="transition-modal-title">Paste mimikatz output</h2>
-            <TextareaAutosize
-              value={data}
-              rowsMax={35}
-              rows={30}
-              cols={30}
-              colsMan={35}
-              onClick={(e) => e.target.select()}
-              onChange={(e) => setData(e.target.value)}
-              onPaste={(e) => {
-                setData(e.clipboardData.getData("Text"));
-                setOpen(false);
-              }}
-            ></TextareaAutosize>
-          </div>
-        </div>
+      <Fade in={openHelper}>
+        <div className={classes.paper}>{children}</div>
       </Fade>
     </Modal>
   );
